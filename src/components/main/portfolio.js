@@ -8,7 +8,6 @@ class Portfolio extends Component {
 
     render() { 
         if(this.props.data){
-            var skillmessage = this.props.data.skillmessage;
             var education = this.props.data.education.map(function(education){
                 return <div key={education.school}>
                             <h3>{education.school}</h3>
@@ -23,11 +22,6 @@ class Portfolio extends Component {
                             <p className='description'>{work.description}</p>
                         </div>
             })
-            // if(this.sortSkill){
-            //     this.props.data.skills.sort(function(a,b){
-            //     return b.level.localeCompare(a.level);
-            //     });
-            // }
             var skills = this.props.data.skills.map(function(skills){
                 var btntype = skills.level <= 30 ? 'btn-outline-info ' : skills.level <= 60 ? 'btn-outline-danger ' : 'btn-outline-success ';
                 var className = 'btn '+ btntype +skills.name.toLowerCase();
