@@ -1,0 +1,119 @@
+.main {
+    display: grid;
+    min-height: 100vh;
+    background-color: #282c34;
+    grid-template-columns: 1fr 3fr 1fr;
+    font-size: calc(10px + 2vmin);
+    color: white;
+}
+
+.leftEmpty {
+    grid-area: 1 / 1 / -1 / 2; 
+}
+
+.rightEmpty {
+    grid-area: 1 / 3 / -1 / -1;
+}
+
+section {
+    padding: 18px 0px 18px 0px;
+}
+
+section.about {
+    grid-column: 2 / 3;
+    height: 100vh;
+}
+
+section.portfolio {
+    grid-column: 2 / 3;
+    min-height: 60vh;
+}
+
+section.contact {
+    grid-column: 2 / 3;
+    min-height: 60vh;
+}
+
+div.intro {
+    display: flex;
+    flex-direction: column;
+    padding-top: 20vh;
+}
+
+p.lightdark {
+    color: lightslategrey;
+}
+
+p.description {
+    font-size: 16px;
+}
+
+a.link {
+    text-decoration: underline;
+    color: silver;
+    margin-right: 20px;
+}
+
+a.download {
+    margin-top: 20px;
+    width: fit-content;
+}
+
+h2.resume-title {
+    margin: 0 0 20px 0;
+}
+  
+div.resume-section {
+    margin: 0 0 100px 0;
+    min-height: 30vh;
+}
+
+div.experience-section {
+    margin-bottom: 30px;
+}
+
+footer {
+    background-color: whitesmoke;
+    min-height: 10vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+}
+
+div.contact-row {
+    display: inline;
+}
+
+span.date {
+    font-size: 18px;
+}
+
+#navbar {
+    overflow: hidden;
+    position: fixed;
+    top: 0;
+    right: 0;
+    border-radius: 20px;
+    
+}
+ 
+#navbar a:hover {
+    background-color: #ddd;
+    color: black;
+}
+  
+.sticky {
+    position: fixed;
+    top: 0;
+    width: 100%;
+}
+
+.sticky {
+    padding-top: 60px;
+}
+
+#navbar a.active {
+    background-color: #4CAF50;
+    color: white;
+} 
