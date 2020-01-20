@@ -16,7 +16,7 @@
       "cityname" : "New York City"
     },
     "website": "https://mattpan.com",
-    "resumedownload":"/files/resume.pdf",
+    "resumedownload" : "/files/resume.pdf",
     "social":[
       {
         "name":"github",

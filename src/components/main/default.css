@@ -31,7 +31,7 @@ section.portfolio {
 
 section.contact {
     grid-column: 2 / 3;
-    min-height: 60vh;
+    min-height: 100vh;
 }
 
 div.intro {
@@ -55,7 +55,7 @@ a.link {
 }
 
 a.download {
-    margin-top: 20px;
+    margin-top: 30px;
     width: fit-content;
 }
 
@@ -64,12 +64,11 @@ h2.resume-title {
 }
   
 div.resume-section {
-    margin: 0 0 100px 0;
-    min-height: 30vh;
+    margin: 0 0 75px 0;
 }
 
 div.experience-section {
-    margin-bottom: 30px;
+    margin-bottom: 35px;
 }
 
 footer {
@@ -95,7 +94,7 @@ span.date {
     top: 0;
     right: 0;
     border-radius: 20px;
-    
+
 }
  
 #navbar a:hover {

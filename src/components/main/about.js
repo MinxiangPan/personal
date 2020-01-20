@@ -9,10 +9,10 @@ class About extends Component {
 
     render() { 
         if(this.props.data){
-            var {name, profilepic, bio, email, resumeDownload, occupation} = this.props.data;
+            var {name, profilepic, bio, email, resumedownload, occupation} = this.props.data;
             var cityname = this.props.data.address.cityname;
             var social = this.props.data.social.map(ele => {
-                return<a key={ele.name} className='link' href={ele.url}>{ele.name} <i className={ele.className} style={{fontSize:'30px'}}></i></a>;
+                return <a key={ele.name} className='link' href={ele.url}>{ele.name} <i className={ele.className} style={{fontSize:'30px'}}></i></a>
             });
         }
 
@@ -25,7 +25,7 @@ class About extends Component {
 
                     </p>
                     <div style={{display: 'inline'}}>{social}</div>
-                    <a className='btn btn-info download' href={resumeDownload}><i className="fa fa-download" style={{fontSize:'30px'}}></i> Download Resume</a>
+                    <a className='btn btn-info download' href={resumedownload}><i className="fa fa-download" style={{fontSize:'30px'}}></i> Download Resume</a>
                 </div>
             </section>
          );
