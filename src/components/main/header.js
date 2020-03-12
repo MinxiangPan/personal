@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Button, Navbar, NavDropdown, Nav  } from 'react-bootstrap';
+import {Link} from 'react-router-dom';
 
 class Header extends Component {
     constructor(props) {
@@ -46,6 +47,9 @@ class Header extends Component {
                             </li>
                             <li className='nav-item'>
                                 <a className="nav-link" href="#contact">Contact</a>
+                            </li>
+                            <li className='nav-item'>
+                                <a className="nav-link" href="folder">Folder</a>
                             </li>
                         </ul>
                     </div>
