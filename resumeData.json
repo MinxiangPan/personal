@@ -1,0 +1,119 @@
+{
+  "main": {
+    "name":"Matthew Pan",
+    "occupation":"Software Engineer",
+    "description":"",
+    "image":"",
+    "bio":"",
+    "contactmessage":"",
+    "email": "minxiang@gmail.com",
+    "phone": "646-508-9645",
+    "address":{
+      "street":"14475 Melbourne Ave.",
+      "city":"Flushing",
+      "state":"NY",
+      "zip": "11367",
+      "cityname" : "New York City"
+    },
+    "website": "https://mattpan.com",
+    "resumedownload" : "/files/resume.pdf",
+    "social":[
+      {
+        "name":"github",
+        "url":"https://github.com/MinxiangPan",
+        "className":"fa fa-github"
+      },
+      {
+        "name":"linkedin",
+        "url":"https://www.linkedin.com/in/matthewmpan",
+        "className":"fa fa-linkedin"
+      },
+      {
+        "name":"facebook",
+        "url":"https://www.facebook.com/minxiang.pan",
+        "className":"fa fa-facebook"
+      }
+    ]
+  },
+  "resume":{
+    "skillmessage":"",
+    "education":[
+      {
+        "school":"University at Buffalo",
+        "degree":"Bachelor of Science in Computer Science",
+        "graduated":"May 2020",
+        "description":""
+      }
+    ],
+    "work":[
+      {
+        "company":"Apex Logistics International",
+        "title":"Software Engineer Intern",
+        "years":"May 2019 - Augest 2019",
+        "description":"Responsible for developing a web application that allows sells and operation team to retrieve and manage more than thousands of containers monthly by using .Net framework. "
+      },
+      {
+        "company":"UB Nano Satellite Laboratory",
+        "title":"Software Developer",
+        "years":"February 2018 - April 2018",
+        "description":"Implemented exception handler module to improve stability of the camera module in the Satellite."
+      }
+    ],
+    "skills":[
+      {
+        "name":"C/C++",
+        "level": 60
+      },
+      {
+        "name":"Python",
+        "level": 60
+      },
+      {
+        "name":"Javascript",
+        "level": 60
+      },
+      {
+        "name":"HTML/CSS",
+        "level": 70
+      },
+      {
+        "name":"SQL",
+        "level": 40
+      },
+      {
+        "name":"Java",
+        "level": 30
+      },
+      {
+        "name":"ReactJs",
+        "level": 60
+      },
+      {
+        "name":"MongoDB",
+        "level": 20
+      }
+    ]
+  },
+  "portfolio":{
+    "projects": [
+      {
+        "title":"UBPlatform",
+        "category":"Website I built for second hand books selling for university students",
+        "image":"",
+        "url":""
+      }
+    ]
+  },
+  "testimonials":{
+    "testimonials":[
+      {
+        "text":"Here you should write some nice things that someone has said about you. No lies though, employers can tell when you are lying.",
+        "user":"Kareem Abdul Jabbar"
+      },
+      {
+        "text":"That Tim Baker must be one of the most brilliant developers I've ever met! It is amazing that nobody has hired him yet. Hey you, you should hire this guy, he may be fresh out of University and have zero on the job experience but I am confident that he will be one of your best developers in no time!",
+        "user":"Steve Wozniak... impersonator"
+      }
+    ]
+  }
+}
