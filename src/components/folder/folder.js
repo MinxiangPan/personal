@@ -12,10 +12,10 @@ class Folder extends Component {
 
     componentDidMount(){
         var header = {
-            'Content-Type': 'application/json',
-            'Access-Control-Allow-Origin' : '*',
+            'Access-Control-Allow-Origin' : 'localhost:3000',
             'Connection' : 'keep-alive'
         };
+        
         axios.get(this.state.server + '/public', {headers : header})
         .then(res => {
             let nlist = []

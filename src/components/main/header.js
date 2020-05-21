@@ -49,7 +49,7 @@ class Header extends Component {
                                 <a className="nav-link" href="#contact">Contact</a>
                             </li>
                             <li className='nav-item'>
-                                <a className="nav-link" href="folder">Folder</a>
+                                <a className="nav-link" href="public">Folder</a>
                             </li>
                         </ul>
                     </div>
