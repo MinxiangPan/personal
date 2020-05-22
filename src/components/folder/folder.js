@@ -7,20 +7,20 @@ class Folder extends Component {
         this.state = {
             list : [],
             server : 'https://gcpf1.mattpan.com',
-            url : this.props.url
         };
     }
 
     componentDidMount(){
-        this.updateToNewFolder(this.state.url);
+        this.updateToNewFolder(document.URL.substr(document.URL.indexOf('/public')));
     }
 
     updateToNewFolder = name => {
-        this.setState({url : name});
-        axios.get(this.state.server + this.state.url)
+        axios.get(this.state.server + name)
         .then(res => {
             if(!res.data.message.hasOwnProperty("errno")){
-                this.setState({list: res.data.message});
+                var ret = res.data.message;
+                ret.sort((a,b)=>{return a.isDict == b.isDict ? 0 : a.isDict ? -1 : 1;});
+                this.setState({list: ret});
             }
         })
         .catch(err => {
@@ -35,10 +35,10 @@ class Folder extends Component {
             <div>
                 {this.state.list.map(items => {
                     if(items.isDict){
-                        return <button key={this.state.server + items.name} onClick={()=>this.updateToNewFolder(items.name)} style={{'display': 'block', 'color':'black'}}>{items.name}</button>;
+                        return <a key={this.state.server + items.name} href={items.name} style={{'display': 'block', 'color':'black'}}>{'Folder: ' + items.name.split(document.URL.substr(document.URL.indexOf('/public')))[1].substr(1)}</a>;
                     }
                     else{
-                        return <a key={this.state.server + items.name} href={this.state.server + items.name} style={{'display': 'block'}}>{items.name}</a>;
+                        return <a key={this.state.server + items.name} href={this.state.server + items.name} style={{'display': 'block'}}>{'Files: ' + items.name.split(document.URL.substr(document.URL.indexOf('/public')))[1].substr(1)}</a>;
                     }
                     
                 })}
