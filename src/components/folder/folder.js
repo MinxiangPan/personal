@@ -10,23 +10,23 @@ class Folder extends Component {
         };
     }
 
-    componentDidMount(){
-        this.updateToNewFolder(document.URL.substr(document.URL.indexOf('/public')));
-    }
+    // componentDidMount(){
+    //     this.updateToNewFolder(document.URL.substr(document.URL.indexOf('/public')));
+    // }
 
-    updateToNewFolder = name => {
-        axios.get(this.state.server + name)
-        .then(res => {
-            if(!res.data.message.hasOwnProperty("errno")){
-                var ret = res.data.message;
-                ret.sort((a,b)=>{return a.isDict == b.isDict ? 0 : a.isDict ? -1 : 1;});
-                this.setState({list: ret});
-            }
-        })
-        .catch(err => {
-            console.log(err);
-        });
-    }
+    // updateToNewFolder = name => {
+    //     axios.get(this.state.server + name)
+    //     .then(res => {
+    //         if(!res.data.message.hasOwnProperty("errno")){
+    //             var ret = res.data.message;
+    //             ret.sort((a,b)=>{return a.isDict == b.isDict ? 0 : a.isDict ? -1 : 1;});
+    //             this.setState({list: ret});
+    //         }
+    //     })
+    //     .catch(err => {
+    //         console.log(err);
+    //     });
+    // }
 
 
 
