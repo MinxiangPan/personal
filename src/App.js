@@ -18,7 +18,7 @@ class App extends Component {
       <div className="App">
         <Switch>
           <Route exact path='/' component={MainPage}/>
-          <Route path='/public' component={Folder}/>
+          <Route path='/public' render={(props) => <Folder {...props} url='/public' /> }/>
         </Switch>
       </div>
     );
