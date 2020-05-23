@@ -15,19 +15,10 @@ class Header extends Component {
 
 
         window.addEventListener('click', ()=>{
-            document.getElementById('navbarSupportedContent').classList.remove('show');
+            if(document.getElementById('navbarSupportedContent') != null){
+                document.getElementById('navbarSupportedContent').classList.remove('show');
+            }
         });
-        // window.addEventListener('scroll', ()=>{
-        //     var navbar = document.getElementById("navbar");
-        //     var sticky = navbar.offsetTop;
-        //     console.log(`${sticky} - ${window.pageYOffset}`);
-        //     if (window.pageYOffset >= sticky) {
-        //         navbar.classList.add("sticky")
-        //     } 
-        //     else {
-        //         navbar.classList.remove("sticky");
-        //     }
-        // });
     }
 
     render() { 
@@ -49,7 +40,7 @@ class Header extends Component {
                                 <a className="nav-link" href="#contact">Contact</a>
                             </li>
                             <li className='nav-item'>
-                                <a className="nav-link" href="/public">Folder</a>
+                                <Link className="nav-link" to="/public">Folder</Link>
                             </li>
                         </ul>
                     </div>

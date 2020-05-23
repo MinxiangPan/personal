@@ -1,0 +1,18 @@
+.itemFolder {
+    display: block;
+    color: black;
+}
+
+.itemFolder:hover {
+    outline: auto;
+}
+
+.itemFiles{
+    display: block;
+    color: blue;
+}
+
+.itemFiles:hover {
+    color: green;
+    outline-style: auto;
+}

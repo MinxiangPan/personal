@@ -3,7 +3,7 @@ import ReactGA from 'react-ga';
 import './App.css';
 import './components/main/default.css';
 import {Switch, Route} from 'react-router-dom';
-import MainPage from './components/main/mainpage';
+import MainPage from './components/main/mainpage.js';
 import Folder from './components/folder/folder';
 
 class App extends Component {
