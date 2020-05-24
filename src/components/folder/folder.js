@@ -26,8 +26,8 @@ class Folder extends Component {
     updateToNewFolder = name => {
         axios.get(this.state.server + name)
         .then(res => {
-            if(!res.data.message.hasOwnProperty("errno")){
-                var ret = res.data.message;
+            if(!res.data.hasOwnProperty("errno")){
+                var ret = res.data;
                 ret.sort((a,b)=>{return a.isDict == b.isDict ? 0 : a.isDict ? -1 : 1;});
                 this.setState({list: ret});
             }
