@@ -8,7 +8,7 @@ class Folder extends Component {
         super(props);
         this.state = {
             list : [],
-            server : 'https://gcpf1.mattpan.com'
+            server : 'https://gcpf1.mattpan.com/api'
         };
         this.updatebasedonCurrentURL = this.updatebasedonCurrentURL.bind(this);
         this.updateToNewFolder = this.updateToNewFolder.bind(this);
