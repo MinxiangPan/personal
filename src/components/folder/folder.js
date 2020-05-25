@@ -8,10 +8,11 @@ class Folder extends Component {
         super(props);
         this.state = {
             list : [],
-            server : 'https://gcpf1.mattpan.com/api'
+            server : 'https://gcpf1.mattpan.com'
         };
         this.updatebasedonCurrentURL = this.updatebasedonCurrentURL.bind(this);
         this.updateToNewFolder = this.updateToNewFolder.bind(this);
+        this.ignoreStatic = this.ignoreStatic.bind(this);
     }
 
     componentDidMount(){
@@ -24,7 +25,7 @@ class Folder extends Component {
     }
 
     updateToNewFolder = name => {
-        axios.get(this.state.server + name)
+        axios.get(this.state.server + '/api' + name)
         .then(res => {
             if(!res.data.hasOwnProperty("errno")){
                 var ret = res.data;
@@ -35,6 +36,10 @@ class Folder extends Component {
         .catch(err => {
             console.log(err);
         });
+    }
+
+    ignoreStatic(name) {
+        return name.substr(name.indexOf('/public'));
     }
 
 
@@ -58,7 +63,7 @@ class Folder extends Component {
 
                 {this.state.list.map(items => {
                     if(items.isDict){
-                        return <Link className="itemFolder" key={this.state.server + items.name} to={items.name} onClick={()=>this.updateToNewFolder(items.name)}>{'Folder: ' + items.name.substr(items.name.lastIndexOf('/')+1)}</Link>;
+                        return <Link className="itemFolder" key={this.state.server + items.name} to={this.ignoreStatic(items.name)} onClick={()=>this.updateToNewFolder(this.ignoreStatic(items.name))}>{'Folder: ' + items.name.substr(items.name.lastIndexOf('/')+1)}</Link>;
                     }
                     else{
                         return <div className="itemFiles" key={this.state.server + items.name} onClick={()=>{window.open(this.state.server + items.name, '_blank')}}>{'Files: ' + items.name.substr(items.name.lastIndexOf('/')+1)}</div>;
