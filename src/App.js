@@ -18,7 +18,7 @@ class App extends Component {
       <div className="App">
         <Switch>
           <Route exact path='/' component={MainPage}/>
-          <Route path='/public' component={Folder}/>
+          <Route path='/public/(.*)?' component={Folder}/>
         </Switch>
       </div>
     );
