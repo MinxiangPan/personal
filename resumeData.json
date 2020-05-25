@@ -41,8 +41,10 @@
       {
         "school":"University at Buffalo",
         "degree":"Bachelor of Science in Computer Science",
-        "graduated":"May 2020",
-        "description":""
+        "graduated":"July 2016 - May 2020",
+        "description":"",
+        "GPA" : "3.95",
+        "GPA_scale": "4.00"
       }
     ],
     "work":[
