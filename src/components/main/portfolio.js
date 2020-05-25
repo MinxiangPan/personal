@@ -11,7 +11,11 @@ class Portfolio extends Component {
             var education = this.props.data.education.map(function(education){
                 return <div key={education.school}>
                             <h3>{education.school}</h3>
-                            <p className="info"><em>{education.degree}</em><br/><span className="date">Excepted {education.graduated}</span></p>
+                            <p className="info">
+                                <em>{education.degree}</em><br/>
+                                <span className="date">{education.graduated}</span><br/>
+                                <span className="date">GPA: {education.GPA} / {education.GPA_scale}</span>
+                            </p>
                             <p>{education.description}</p>
                         </div>
             })
