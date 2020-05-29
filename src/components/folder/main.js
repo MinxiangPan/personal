@@ -36,7 +36,6 @@ class FolderMain extends Component {
         }).then(res => {
             if(res.data.token){
                 localStorage.setItem('token', res.data.token);
-                
             }
             else{
                 alert("username or password is incorrect!");

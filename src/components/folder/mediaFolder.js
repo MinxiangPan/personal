@@ -11,11 +11,14 @@ class MediaFolder extends Component {
             server : 'https://gcpf1.mattpan.com',
             userID : null,
             username : null,
-            email : null
+            email : null,
+            audioUrl : null,
+            audioTitle : null
         };
         this.updatebasedonCurrentURL = this.updatebasedonCurrentURL.bind(this);
         this.updateToNewFolder = this.updateToNewFolder.bind(this);
         this.ignoreStatic = this.ignoreStatic.bind(this);
+        this.testAudio = this.testAudio.bind(this);
     }
 
     componentDidMount(){
@@ -71,11 +74,30 @@ class MediaFolder extends Component {
     }
 
 
+    testAudio(name){
+        let loading = document.getElementById('loading');
+        loading.style.display = 'block';
+        axios({
+            url: this.state.server+'/api' + name, //your url
+            method: 'GET',
+            responseType: 'blob', // important
+          }).then((response) => {
+            loading.style.display = 'none';
+             const url = window.URL.createObjectURL(new Blob([response.data] , {type: response.headers["content-type"]}));
+             let audio = document.getElementById('audioControl');
+             audio.src = url;
+             audio.title = name;
+             audio.type = response.headers["content-type"];
+             this.setState({audioUrl : url, audioTitle: name.substr(name.lastIndexOf('/')+1)});
+             audio.play();
+          });
+    }
+
 
     render() {
         return (
             <div>
-                <button onClick={()=>{
+                <button className="btn btn-secondary" onClick={()=>{
                     var prev = document.URL.substring(document.URL.indexOf(this.props.target), document.URL.lastIndexOf('/'));
                     if(prev == ''){
                         var link = document.URL.substring(0, document.URL.lastIndexOf('/'));
@@ -88,15 +110,24 @@ class MediaFolder extends Component {
                 }}>
                     Back
                 </button>
+                
+                <div className="" style={{'display': 'block'}}>
+                    <div class="spinner-border text-info" role="status" id="loading" style={{'display': 'none'}}>
+                        <span class="sr-only">Loading...</span>
+                    </div>
+                    <span style={{'display': 'block'}}>{this.state.audioTitle}</span>
+                    <audio controls="control" id="audioControl" src={this.state.audio} />
+                </div>
+                
+                    
 
                 {this.state.list.map(items => {
                     if(items.isDict){
                         return <Link className="itemFolder" key={this.state.server + items.name} to={'/folder'+ this.ignoreStatic(items.name)} onClick={()=>this.updateToNewFolder(this.ignoreStatic(items.name))}>{'Folder: ' + items.name.substr(items.name.lastIndexOf('/')+1)}</Link>;
                     }
                     else{
-                        return <div className="itemFiles" key={this.state.server + items.name} onClick={()=>{this.testThre(items.name)}}>{'Files: ' + items.name.substr(items.name.lastIndexOf('/')+1)}</div>;
+                        return <div className="itemFiles" key={this.state.server + items.name} onClick={()=>{this.testAudio(items.name)}}>{'Files: ' + items.name.substr(items.name.lastIndexOf('/')+1)}</div>;
                     }
-                    
                 })}
             </div>
         );
