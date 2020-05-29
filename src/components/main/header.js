@@ -12,8 +12,6 @@ class Header extends Component {
     }
 
     componentDidMount(){
-
-
         window.addEventListener('click', ()=>{
             if(document.getElementById('navbarSupportedContent') != null){
                 document.getElementById('navbarSupportedContent').classList.remove('show');
@@ -40,7 +38,7 @@ class Header extends Component {
                                 <a className="nav-link" href="#contact">Contact</a>
                             </li>
                             <li className='nav-item'>
-                                <Link className="nav-link" to="/public">Folder</Link>
+                                <Link className="nav-link" to="/folder/public">Folder</Link>
                             </li>
                         </ul>
                     </div>

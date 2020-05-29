@@ -4,7 +4,7 @@ import './App.css';
 import './components/main/default.css';
 import {Switch, Route} from 'react-router-dom';
 import MainPage from './components/main/mainpage.js';
-import Folder from './components/folder/folder';
+import FolderMain from './components/folder/main';
 
 class App extends Component {
   constructor(props){
@@ -18,7 +18,7 @@ class App extends Component {
       <div className="App">
         <Switch>
           <Route exact path='/' component={MainPage}/>
-          <Route path='/public/(.*)?' component={Folder}/>
+          <Route path='/folder/(.*)?' component={FolderMain}/>
         </Switch>
       </div>
     );
