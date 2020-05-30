@@ -1,14 +1,16 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import {Link} from 'react-router-dom';
+import {Switch, Route} from 'react-router-dom';
 import Folder from './folder';
 import MediaFolder from './mediaFolder';
+import Music from './music';
 
 class FolderMain extends Component {
     constructor(props) {
         super(props);
         this.state = { 
-            page : <Folder target="/public"/>
+            server : 'https://gcpf1.mattpan.com/api'
          }
     }
 
@@ -16,20 +18,8 @@ class FolderMain extends Component {
 
     }
 
-    switchPage = page => {
-        let pages = <Folder target="/public"/>
-        switch(page){
-            case "media":
-                pages = <MediaFolder target="/media"/>
-            default:
-
-        }
-        this.setState({page : pages});
-    }
-
     // Temp Login Method
     tempLogin(username, password){
-        
         axios.post('https://gcpf1.mattpan.com/api/auth/login', {
             'username': username,
             'password' : password
@@ -47,7 +37,7 @@ class FolderMain extends Component {
         return ( 
             <div>
                 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-                    <Link class="navbar-brand" href="folder">Folder</Link>
+                    <Link class="navbar-brand" >Folder</Link>
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
                     </button>
@@ -55,41 +45,34 @@ class FolderMain extends Component {
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul class="navbar-nav mr-auto">
                             <li class="nav-item active">
-                                <Link class="nav-link" to="/folder/public" onClick={()=>this.switchPage("public")}>Public <span class="sr-only">(current)</span></Link>
+                                <Link class="nav-link" to="/folder/public" >Public <span class="sr-only">(current)</span></Link>
                             </li>
                             <li class="nav-item">
-                                <Link class="nav-link" onClick={()=>this.switchPage("media")} to="/folder/media">Media</Link>
+                                <Link class="nav-link" to="/folder/media">Media</Link>
+                            </li>
+                            <li class="nav-item">
+                                <Link class="nav-link" to="/folder/music">Music</Link>
                             </li>
                         </ul>
                         <ul class="navbar-nav my-2 my-lg-0">
                             <li>
-                                <input id="username" />
+                                <Link className="btn btn-primary" to="/login">Login</Link>
                             </li>
                             <li>
-                                <input id="password" type='password'/>
-                            </li>
-                            <li>
-                                <button className="btn btn-primary" onClick={()=>{
-                                    let username = document.getElementById('username');
-                                    let password = document.getElementById('password');
-                                    this.tempLogin(username.value, password.value);
-                                    username.value = "";
-                                    password.value = "";
-                                    }}>Login</button>
-                            </li>
-                            <li>
-                                <button className="btn btn-secondary" onClick={()=>{
+                                <Link className="btn btn-secondary" to="/folder/public" onClick={()=>{
                                     localStorage.removeItem('token');
-                                    axios.defaults.headers.common['Authorization'] = ''}}>LogOut</button>
+                                    axios.defaults.headers.common['Authorization'] = ''}}>LogOut</Link>
                             </li>
                         </ul>
                     </div>
-                    </nav>
+                </nav>
 
-                    {this.state.page}
-
+                <Switch>
+                    <Route path='/folder/media/(.*)?' render={(props)=><MediaFolder {...props} target="/media"/>}/>
+                    <Route path='/folder/public/(.*)?' render={(props)=><Folder {...props} target="/public"/>}/>
+                    <Route path='/folder/music/(.*)?' render={(props)=><Music {...props} server={this.state.server}/>} />
+                </Switch>
             </div>
-
          );
     }
 }

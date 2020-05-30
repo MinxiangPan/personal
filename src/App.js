@@ -5,6 +5,7 @@ import './components/main/default.css';
 import {Switch, Route} from 'react-router-dom';
 import MainPage from './components/main/mainpage.js';
 import FolderMain from './components/folder/main';
+import Login from './components/main/login';
 
 class App extends Component {
   constructor(props){
@@ -18,6 +19,7 @@ class App extends Component {
       <div className="App">
         <Switch>
           <Route exact path='/' component={MainPage}/>
+          <Route path='/login' component={Login}></Route>
           <Route path='/folder/(.*)?' component={FolderMain}/>
         </Switch>
       </div>

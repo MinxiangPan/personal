@@ -21,16 +21,6 @@ class Folder extends Component {
         window.addEventListener('popstate', this.updatebasedonCurrentURL);
     }
 
-    /*
-    axios.post(this.state.server+'/api/auth/login', {
-            'username': 'timeworld',
-            'password' : '/<MATT@9714rb#>/'
-        }).then(res => {
-            localStorage.setItem('token', res.data.token);
-            console.log(localStorage.getItem('token'));
-        });
-    */
-
     updatebasedonCurrentURL(e){
         this.updateToNewFolder(document.URL.substr(document.URL.indexOf(this.props.target)));
     }
@@ -58,7 +48,7 @@ class Folder extends Component {
     render() {
         return (
             <div>
-                <button onClick={()=>{
+                <button className="btn btn-primary" onClick={()=>{
                     var prev = document.URL.substring(document.URL.indexOf(this.props.target), document.URL.lastIndexOf('/'));
                     if(prev == ''){
                         var link = document.URL.substring(0, document.URL.lastIndexOf('/'));

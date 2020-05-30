@@ -30,8 +30,12 @@ class MediaFolder extends Component {
     getUserInfo(){
         axios.get(this.state.server+'/api/auth/user').then(res =>{
             this.setState({userID: res.data.id, username: res.data.username, email: res.data.email});
-            this.updateToNewFolder(document.URL.substr(document.URL.indexOf(this.props.target))+'/'+res.data.username+'/');
-            window.history.pushState(null, null, document.URL + '/' + res.data.username + '/');
+            if(document.URL.indexOf(this.props.target+ '/' + res.data.username) > 0){
+                this.updateToNewFolder(document.URL.substr(document.URL.indexOf(this.props.target))+'/');
+            }
+            else{
+                this.updateToNewFolder(document.URL.substr(document.URL.indexOf(this.props.target))+'/'+res.data.username+'/');
+            }
         });
     }
 
