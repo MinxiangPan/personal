@@ -12,8 +12,12 @@ class Login extends Component {
 
     }
 
+    componentDidMount(){
+        axios.defaults.headers.common['Authorization'] = '';
+    }
+
     processLogin(){
-        axios.post('https://gcpf1.mattpan.com/api/auth/login', {
+        axios.post(this.props.server + '/auth/login', {
             'username': document.getElementById('username').value,
             'password' : document.getElementById('password').value
         }).then(res => {

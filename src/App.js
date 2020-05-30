@@ -10,6 +10,9 @@ import Login from './components/main/login';
 class App extends Component {
   constructor(props){
     super(props);
+    this.state = {
+      server : 'https://homepc.mattpan.com:5443/api'
+    }
     ReactGA.initialize('UA-156169363-1');
     ReactGA.pageview(window.location.pathname);
   }
@@ -19,8 +22,8 @@ class App extends Component {
       <div className="App">
         <Switch>
           <Route exact path='/' component={MainPage}/>
-          <Route path='/login' component={Login}></Route>
-          <Route path='/folder/(.*)?' component={FolderMain}/>
+          <Route path='/login' render={(props)=><Login {...props} server={this.state.server} />}></Route>
+          <Route path='/folder/(.*)?' render={(props)=><FolderMain {...props} server={this.state.server} />}/>
         </Switch>
       </div>
     );

@@ -10,7 +10,8 @@ class FolderMain extends Component {
     constructor(props) {
         super(props);
         this.state = { 
-            server : 'https://gcpf1.mattpan.com/api'
+            // server : 'https://gcpf1.mattpan.com/api'
+            server : this.props.server
          }
     }
 
@@ -20,7 +21,7 @@ class FolderMain extends Component {
 
     // Temp Login Method
     tempLogin(username, password){
-        axios.post('https://gcpf1.mattpan.com/api/auth/login', {
+        axios.post( this.state.server + '/auth/login', {
             'username': username,
             'password' : password
         }).then(res => {
@@ -68,9 +69,9 @@ class FolderMain extends Component {
                 </nav>
 
                 <Switch>
-                    <Route path='/folder/media/(.*)?' render={(props)=><MediaFolder {...props} target="/media"/>}/>
-                    <Route path='/folder/public/(.*)?' render={(props)=><Folder {...props} target="/public"/>}/>
-                    <Route path='/folder/music/(.*)?' render={(props)=><Music {...props} server={this.state.server}/>} />
+                    <Route path='/folder/media/(.*)?' render={(props)=><MediaFolder {...props} target="/media" server={this.state.server} />}/>
+                    <Route path='/folder/public/(.*)?' render={(props)=><Folder {...props} target="/public" server={this.state.server} />}/>
+                    <Route path='/folder/music/(.*)?' render={(props)=><Music {...props} server={this.state.server} />} />
                 </Switch>
             </div>
          );

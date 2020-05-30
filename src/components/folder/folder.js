@@ -8,7 +8,7 @@ class Folder extends Component {
         super(props);
         this.state = {
             list : [],
-            server : 'https://gcpf1.mattpan.com'
+            server : this.props.server
         };
         this.updatebasedonCurrentURL = this.updatebasedonCurrentURL.bind(this);
         this.updateToNewFolder = this.updateToNewFolder.bind(this);
@@ -26,7 +26,7 @@ class Folder extends Component {
     }
 
     updateToNewFolder = name => {
-        axios.get(this.state.server + '/api' + name)
+        axios.get(this.state.server + name)
         .then(res => {
             if(!res.data.hasOwnProperty("errno")){
                 var ret = res.data;
