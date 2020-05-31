@@ -9,6 +9,8 @@
     "axios": "^0.19.2",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
+    "react-jinke-music-player": "^4.14.1",
+    "react-player": "^2.1.0",
     "react-router-dom": "^5.1.2",
     "react-scripts": "3.4.0"
   },
@@ -19,8 +21,8 @@
     "eject": "react-scripts eject",
     "deploy": "npm run build && gh-pages -d build"
   },
-  "proxy": "http://localhost:3001",
-  "homepage":"https://www.mattpan.com",
+  "proxy": "http://localhost:3000",
+  "homepage": "https://www.mattpan.com",
   "eslintConfig": {
     "extends": "react-app"
   },

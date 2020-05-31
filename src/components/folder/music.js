@@ -1,12 +1,16 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import {Link} from 'react-router-dom';
+import ReactPlayer from 'react-player';
+import ReactJkMusicPlayer from 'react-jinke-music-player';
+import 'react-jinke-music-player/assets/index.css';
 import './music.css';
 import Album from './music_album';
 
 class Music extends Component {
     constructor(props) {
         super(props);
+        this.audioInstance = null;
         this.state = { 
             userID : null,
             username : null,
@@ -14,13 +18,15 @@ class Music extends Component {
             listOfalbum : [],
             listOfSong: [],
             currentAlbum : null,
-            audioTitle : ""
+            audioTitle : "",
+            audioList : []
          };
          this.getUserInfo = this.getUserInfo.bind(this);
          this.getListOfAlbum = this.getListOfAlbum.bind(this);
          this.getListOfSong = this.getListOfSong.bind(this);
          this.playSong = this.playSong.bind(this);
          this.uploadSong = this.uploadSong.bind(this);
+         this.getSongUrl = this.getSongUrl.bind(this);
     }
 
     componentDidMount(){
@@ -42,17 +48,41 @@ class Music extends Component {
         });
     }
 
+    async getSongUrl(alblum_id, song_id){
+        axios({
+            url: this.props.server + '/music/getSong',
+            method: 'POST',
+            data: {"album_id": alblum_id, "song_id" : song_id},
+            responseType: 'blob', // important
+        }).then((response) => {
+            const url = window.URL.createObjectURL(new Blob([response.data] , {type: response.headers["content-type"]}));
+            return url;
+        });
+    }
+
     getListOfSong(alblum_id){
         axios.get(this.props.server + "/music/getListOfSong?album_id=" + alblum_id)
         .then(res =>{
             if(res.data.success){
                 this.setState({listOfSong: res.data.list, currentAlbum: alblum_id});
+                
+                let songList = [];
+                let reslist = res.data.list;
+                for(var song in reslist){
+                    songList.push({
+                        name: reslist[song].song_title, 
+                        song_id: reslist[song].id, 
+                        alblum_id: alblum_id
+                    });
+                }
+                this.setState({audioList: songList});
             }
             else{
                 console.log(res.data.message);
             }
         });
     }
+    
 
     playSong(data){
         let loading = document.getElementById('loading');
@@ -60,17 +90,23 @@ class Music extends Component {
         axios({
             url: this.props.server + '/music/getSong',
             method: 'POST',
-            data: {"album_id": this.state.currentAlbum, "song_id" : data.song_id},
+            data: {"album_id": data.album, "song_id" : data.id},
             responseType: 'blob', // important
         }).then((response) => {
             loading.style.display = 'none';
             const url = window.URL.createObjectURL(new Blob([response.data] , {type: response.headers["content-type"]}));
-            let audio = document.getElementById('audioControl');
-            audio.src = url;
-            audio.title = data.song_title;
-            audio.type = response.headers["content-type"];
-            this.setState({audioTitle: data.song_title});
-            audio.play();
+            // this.state.audioList.push({ name : data.song_title,src : url});
+            // this.setState({audioList : this.state.audioList});
+            this.setState({audioList : [{ name: data.song_title, musicSrc:url}]});
+            // this.audioInstance.play();
+
+            // document.getElementById('react-music-player');
+            // let audio = document.getElementById('audioControl');
+            // audio.src = url;
+            // audio.title = data.song_title;
+            // audio.type = response.headers["content-type"];
+            // this.setState({audioTitle: data.song_title});
+            // audio.play();
         });
     }
 
@@ -113,6 +149,20 @@ class Music extends Component {
                 <button type="button" className="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
                     Upload Song
                 </button>
+                <ReactJkMusicPlayer 
+                    getAudioInstance={instance=>this.audioInstance=instance} 
+                    spaceBar='true' 
+                    theme="light" 
+                    autoPlay='true' 
+                    mode="full" 
+                    audioLists={this.state.audioList}
+                    onAudioProgress={
+                        audioInfo=>{
+                            audioInfo['musicSrc'] = this.getSongUrl(audioInfo.album, audioInfo.ID);
+                            this.setState({audioList : [audioInfo]});
+                        }
+                    }
+                />
 
                 <div>
                     <div className="" style={{'display': 'block'}}>
@@ -125,7 +175,7 @@ class Music extends Component {
                     <div className="list-group">
                         {
                             this.state.listOfSong.map(data => {
-                            return <button type="button" className="list-group-item list-group-item-action" onClick={()=>this.playSong(data)}>Song title: {data.song_title}</button>
+                                return <button type="button" className="list-group-item list-group-item-action" onClick={()=>this.playSong(data)}>Song title: {data.song_title}</button>
                             })
                         }
                     </div>
