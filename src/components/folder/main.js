@@ -5,23 +5,39 @@ import {Switch, Route} from 'react-router-dom';
 import Folder from './folder';
 import MediaFolder from './mediaFolder';
 import Music from './music';
+import PrivateRoute from './privateRouter';
 
 class FolderMain extends Component {
     constructor(props) {
         super(props);
         this.state = { 
             // server : 'https://gcpf1.mattpan.com/api'
-            server : this.props.server
+            server : this.props.server,
+            isLogin : null
          }
     }
 
     componentDidMount(){
+        this.testUserToken()
+        .then(res =>{
+            this.setState({isLogin: true});
+        }).catch(err=>{
+            this.setState({isLogin: false});
+        });
+    }
 
+    async testUserToken(){
+        return await axios({
+            url: "https://homepc.mattpan.com:5443/api/auth/user",
+            headers:{
+                'Authorization' : 'Token ' + localStorage.getItem('token')
+            }
+        });
     }
 
     // Temp Login Method
     tempLogin(username, password){
-        axios.post( this.state.server + '/auth/login', {
+        axios.post( this.props.server + '/auth/login', {
             'username': username,
             'password' : password
         }).then(res => {
@@ -34,28 +50,30 @@ class FolderMain extends Component {
         });
     }
 
+
+
     render() { 
         return ( 
             <div>
-                <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-                    <Link class="navbar-brand" >Folder</Link>
-                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
+                <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
+                    <div className="navbar-brand" >Folder</div>
+                    <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <span className="navbar-toggler-icon"></span>
                     </button>
 
-                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                        <ul class="navbar-nav mr-auto">
-                            <li class="nav-item active">
-                                <Link class="nav-link" to="/folder/public" >Public <span class="sr-only">(current)</span></Link>
+                    <div className="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul className="navbar-nav mr-auto">
+                            <li className="nav-item active">
+                                <Link className="nav-link" to="/folder/public" >Public <span className="sr-only">(current)</span></Link>
                             </li>
-                            <li class="nav-item">
-                                <Link class="nav-link" to="/folder/media">Media</Link>
+                            <li className="nav-item">
+                                <Link className="nav-link" to="/folder/media">Media</Link>
                             </li>
-                            <li class="nav-item">
-                                <Link class="nav-link" to="/folder/music">Music</Link>
+                            <li className="nav-item">
+                                <Link className="nav-link" to="/folder/music">Music</Link>
                             </li>
                         </ul>
-                        <ul class="navbar-nav my-2 my-lg-0">
+                        <ul className="navbar-nav my-2 my-lg-0">
                             <li>
                                 <Link className="btn btn-primary" to="/login">Login</Link>
                             </li>
@@ -67,12 +85,15 @@ class FolderMain extends Component {
                         </ul>
                     </div>
                 </nav>
-
-                <Switch>
-                    <Route path='/folder/media/(.*)?' render={(props)=><MediaFolder {...props} target="/media" server={this.state.server} />}/>
-                    <Route path='/folder/public/(.*)?' render={(props)=><Folder {...props} target="/public" server={this.state.server} />}/>
-                    <Route path='/folder/music/(.*)?' render={(props)=><Music {...props} server={this.state.server} />} />
-                </Switch>
+                {
+                    this.state.isLogin == null ? <span/>:
+                    <Switch>
+                        <PrivateRoute component={MediaFolder} isLogin={this.state.isLogin} path='/folder/media/(.*)?' target="/media" server={this.props.server}/>
+                        <PrivateRoute component={Music} isLogin={this.state.isLogin} path='/folder/music/(.*)?' server={this.props.server}/>
+                        <Route path='/folder/public/(.*)?' render={(props)=><Folder {...props} target="/public" server={this.props.server} />}/>
+                    </Switch>
+                }
+                
             </div>
          );
     }
