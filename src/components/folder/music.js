@@ -110,15 +110,19 @@ class Music extends Component {
                         return <div className="music_album_items" key={data.id+data.album_title+Math.random(0,10000)} onClick={()=>this.getListOfSong(data.id)}><Album album_data={data}/></div>
                     })}
                 </div>
-                <button type="button" className="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-                    Upload Song
-                </button>
-
-                <MusicPlayer 
-                    playType="shuffle"
-                    server={this.props.server}
-                    getAudioInstance={instance=>this.audioInstance=instance}
-                />
+                {
+                    this.state.currentAlbum == null ? null :
+                    <div>
+                        <button type="button" className="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+                            Upload Song
+                        </button>
+                        <MusicPlayer 
+                            playType="listloop"
+                            server={this.props.server}
+                            getAudioInstance={instance=>this.audioInstance=instance}
+                        />
+                    </div>
+                }
 
                 <div>
                     
@@ -128,8 +132,8 @@ class Music extends Component {
                                 data => 
                                 <li key={data+Math.random()+''+Math.random()}>
                                     <div className="input-group mb-1">
-                                        <div key={data + Math.random()} className="form-control list-group-item list-group-item-action" onClick={()=>this.audioInstance.playTargetSong(data)}>
-                                            Song title: {data.song_title}
+                                        <div key={data + Math.random()} className="form-control list-group-item list-group-item-action" onClick={()=>this.audioInstance.playTargetSong(data, true)}>
+                                            {data.song_title}
                                         </div>
                                         <div className="input-group-append">
                                             <button 
