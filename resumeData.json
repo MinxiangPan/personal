@@ -79,20 +79,20 @@
         "level": 70
       },
       {
+        "name":"React.js",
+        "level": 60
+      },
+      {
+        "name":"Django",
+        "level": 60
+      },
+      {
         "name":"SQL",
         "level": 40
       },
       {
         "name":"Java",
         "level": 30
-      },
-      {
-        "name":"ReactJs",
-        "level": 60
-      },
-      {
-        "name":"MongoDB",
-        "level": 20
       }
     ]
   },
