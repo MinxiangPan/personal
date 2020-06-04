@@ -23,7 +23,7 @@ class App extends Component {
         <Switch>
           <Route exact path='/' component={MainPage}/>
           <Route path='/login' render={(props)=><Login {...props} server={this.state.server} />}></Route>
-          <Route path='/folder/(.*)?' render={(props)=><FolderMain {...props} server={this.state.server} />}/>
+          <Route path='/app/(.*)?' render={(props)=><FolderMain {...props} server={this.state.server} />}/>
         </Switch>
       </div>
     );

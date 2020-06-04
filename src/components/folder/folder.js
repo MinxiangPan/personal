@@ -16,7 +16,6 @@ class Folder extends Component {
     }
 
     componentDidMount(){
-        axios.defaults.headers.common['Authorization'] = '';
         this.updateToNewFolder(document.URL.substr(document.URL.indexOf(this.props.target)));
         window.addEventListener('popstate', this.updatebasedonCurrentURL);
     }
@@ -64,7 +63,7 @@ class Folder extends Component {
 
                 {this.state.list.map(items => {
                     if(items.isDict){
-                        return <Link className="itemFolder" key={this.state.server + items.name} to={'/folder' + this.ignoreStatic(items.name)} onClick={()=>this.updateToNewFolder(this.ignoreStatic(items.name))}>{'Folder: ' + items.name.substr(items.name.lastIndexOf('/')+1)}</Link>;
+                        return <Link className="itemFolder" key={this.state.server + items.name} to={'/app' + this.ignoreStatic(items.name)} onClick={()=>this.updateToNewFolder(this.ignoreStatic(items.name))}>{'Folder: ' + items.name.substr(items.name.lastIndexOf('/')+1)}</Link>;
                     }
                     else{
                         return <div className="itemFiles" key={this.state.server + items.name} onClick={()=>{window.open(this.state.server + items.name, '_blank')}}>{'Files: ' + items.name.substr(items.name.lastIndexOf('/')+1)}</div>;

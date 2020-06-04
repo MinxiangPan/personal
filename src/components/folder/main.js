@@ -13,14 +13,18 @@ class FolderMain extends Component {
         this.state = { 
             // server : 'https://gcpf1.mattpan.com/api'
             server : this.props.server,
-            isLogin : null
+            isLogin : null,
+            userid : null,
+            username: null,
+            email: null
          }
     }
 
     componentDidMount(){
         this.testUserToken()
         .then(res =>{
-            this.setState({isLogin: true});
+            console.log(res);
+            this.setState({isLogin: true, userid: res.data.id, username: res.data.username, email: res.data.email});
         }).catch(err=>{
             this.setState({isLogin: false});
         });
@@ -64,33 +68,43 @@ class FolderMain extends Component {
                     <div className="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul className="navbar-nav mr-auto">
                             <li className="nav-item active">
-                                <Link className="nav-link" to="/folder/public" >Public <span className="sr-only">(current)</span></Link>
+                                <Link className="nav-link" to="/app/public" >Public <span className="sr-only">(current)</span></Link>
                             </li>
                             <li className="nav-item">
-                                <Link className="nav-link" to="/folder/media">Media</Link>
+                                <Link className="nav-link" to="/app/media">Media</Link>
                             </li>
                             <li className="nav-item">
-                                <Link className="nav-link" to="/folder/music">Music</Link>
+                                <Link className="nav-link" to="/app/music">Music</Link>
                             </li>
                         </ul>
                         <ul className="navbar-nav my-2 my-lg-0">
-                            <li>
-                                <Link className="btn btn-primary" to="/login">Login</Link>
-                            </li>
-                            <li>
-                                <Link className="btn btn-secondary" to="/folder/public" onClick={()=>{
-                                    localStorage.removeItem('token');
-                                    axios.defaults.headers.common['Authorization'] = ''}}>LogOut</Link>
-                            </li>
+                            {
+                                this.state.isLogin ? 
+                                <li style={{'color': 'white', 'margin':'8px 10px 0 0'}}>Weclome: {this.state.username}</li>
+                                : null
+                            }
+                            { 
+                                this.state.isLogin ? 
+                                <li>
+                                    <Link className="btn btn-secondary" to="/app/public" onClick={()=>{
+                                        localStorage.removeItem('token');
+                                        this.setState({isLogin: false});
+                                        axios.defaults.headers.common['Authorization'] = ''}}>LogOut</Link>
+                                </li>
+                                : 
+                                <li>
+                                    <Link className="btn btn-primary" to="/login">Login</Link>
+                                </li>
+                            }
                         </ul>
                     </div>
                 </nav>
                 {
                     this.state.isLogin == null ? <span/>:
                     <Switch>
-                        <PrivateRoute component={MediaFolder} isLogin={this.state.isLogin} path='/folder/media/(.*)?' target="/media" server={this.props.server}/>
-                        <PrivateRoute component={Music} isLogin={this.state.isLogin} path='/folder/music/(.*)?' server={this.props.server}/>
-                        <Route path='/folder/public/(.*)?' render={(props)=><Folder {...props} target="/public" server={this.props.server} />}/>
+                        <PrivateRoute component={MediaFolder} isLogin={this.state.isLogin} path='/app/media/(.*)?' target="/media" server={this.props.server}/>
+                        <PrivateRoute component={Music} isLogin={this.state.isLogin} path='/app/music/(.*)?' server={this.props.server}/>
+                        <Route path='/app/public/(.*)?' render={(props)=><Folder {...props} target="/public" server={this.props.server} />}/>
                     </Switch>
                 }
                 

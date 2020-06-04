@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import ReactGA from 'react-ga';
 import axios from 'axios';
+import $ from 'jquery';
 import {Link} from 'react-router-dom';
 import './login.css';
 
@@ -14,6 +15,11 @@ class Login extends Component {
 
     componentDidMount(){
         axios.defaults.headers.common['Authorization'] = '';
+        document.body.style.backgroundColor = '#212121';
+    }
+
+    componentWillUnmount(){
+        document.body.style.backgroundColor = 'white';
     }
 
     processLogin(){
@@ -23,6 +29,7 @@ class Login extends Component {
         }).then(res => {
             if(res.data.token){
                 localStorage.setItem('token', res.data.token);
+                axios.defaults.headers.common['Authorization'] = 'Token '+ res.data.token;
                 window.history.back();
             }
             else{
@@ -34,16 +41,50 @@ class Login extends Component {
 
     render() { 
         return ( 
-        <div>
-            <div className="login-item">
-                <label>Username: </label>
-                <input id="username"></input>
+        <div className="form">
+            <div className='control'>
+                <h1>
+                Sign In
+                </h1>
             </div>
-            <div className="login-item">
-                <label>Password: </label>
-                <input id="password" type="password"></input>
+            <div className="control block-cube block-input login-item">
+                <input id="username" type="text" name='username' placeholder='Username'></input>
+                <div class='bg-top'>
+                    <div class='bg-inner'></div>
+                </div>
+                <div class='bg-right'>
+                    <div class='bg-inner'></div>
+                </div>
+                <div class='bg'>
+                    <div class='bg-inner'></div>
+                </div>
             </div>
-            <button className="login-button btn btn-primary" onClick={this.processLogin}>Login</button>
+            <div className="control block-cube block-input login-item">
+                <input id="password" name='password' placeholder='Password' type='password'></input>
+                <div class='bg-top'>
+                    <div class='bg-inner'></div>
+                </div>
+                <div class='bg-right'>
+                    <div class='bg-inner'></div>
+                </div>
+                <div class='bg'>
+                    <div class='bg-inner'></div>
+                </div>
+            </div>
+            <button className="login-button btn block-cube block-cube-hover" type="button" onClick={this.processLogin}>
+                <div className='bg-top'>
+                    <div className='bg-inner'></div>
+                    </div>
+                    <div className='bg-right'>
+                    <div className='bg-inner'></div>
+                </div>
+                <div className='bg'>
+                    <div className='bg-inner'></div>
+                </div>
+                <div className='text'>
+                    Log In
+                </div>
+            </button>
             <span className="login-message" id="login-message"></span>
         </div> );
     }
