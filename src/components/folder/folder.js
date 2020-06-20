@@ -66,7 +66,7 @@ class Folder extends Component {
                         return <Link className="itemFolder" key={this.state.server + items.name} to={'/app' + this.ignoreStatic(items.name)} onClick={()=>this.updateToNewFolder(this.ignoreStatic(items.name))}>{'Folder: ' + items.name.substr(items.name.lastIndexOf('/')+1)}</Link>;
                     }
                     else{
-                        return <div className="itemFiles" key={this.state.server + items.name} onClick={()=>{window.open(this.state.server + items.name, '_blank')}}>{'Files: ' + items.name.substr(items.name.lastIndexOf('/')+1)}</div>;
+                        return <div className="itemFiles" key={this.state.server + items.name} onClick={()=>{window.open(this.state.server + this.ignoreStatic(items.name), '_blank')}}>{'Files: ' + items.name.substr(items.name.lastIndexOf('/')+1)}</div>;
                     }
                     
                 })}
